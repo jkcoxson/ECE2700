@@ -32,6 +32,9 @@ module testbench ();
   );
 
   initial begin
+    $dumpfile("wave.vcd");
+    $dumpvars(0, testbench);
+
     clk = 0;
     in1 = 0;
     in2 = 0;

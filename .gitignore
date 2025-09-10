@@ -3,3 +3,5 @@
 *.sim
 *.hw
 .DS_Store
+*.vvp
+*.vcd
