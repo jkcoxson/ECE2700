@@ -27,7 +27,7 @@ module FullAdder (
   output s, Cout;
   wire z1, z2, z3;
 
-  xor (s, x, y);
+  xor (s, x, y, Cin);
 
   // if anything we do will wrap back around, set the carry out to 1
   and (z1, x, y);
