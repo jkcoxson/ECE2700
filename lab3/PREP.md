@@ -10,3 +10,5 @@ assign S       = (sel) ? a1 : a2;
 
 4. Assuming the delay of a 4-bit ripple carry adder is 4 and a multiplexor is 1, compare the delay of
 a 16-bit ripple carry adder to a 16-bit carry-select adder.
+
+

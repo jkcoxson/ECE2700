@@ -47,24 +47,24 @@ module testbench ();
 //  end
 
 // (part 6)
-reg [3:0] X;
-reg [3:0] Y;
-wire [3:0] S;
+reg [15:0] X;
+reg [15:0] Y;
+wire [15:0] S;
 wire carryout;
 integer i, j;
 
-CarrySelect DUT (0, X, Y, S, carryout);
+RipplyCarry16 DUT (X, Y, 0, carryout, S);
 
 initial begin
-    X = 4'b0000;
-    Y = 4'b0000;
+    X = 16'b0000000000000000;
+    Y = 16'b0000000000000000;
 end
     
 
 initial begin
-    for (i = 0; i < 16; i = i + 1) begin
+    for (i = 120; i < 65536; i = i + 1) begin
         X = i;
-        for (j = 0; j < 16; j = j + 1) begin
+        for (j = 5000; j < 5050; j = j + 1) begin
             Y = j;
             #5;
         end
