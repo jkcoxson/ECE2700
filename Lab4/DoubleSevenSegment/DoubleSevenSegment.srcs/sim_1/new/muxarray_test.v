@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/08/2025 05:53:56 PM
+// Create Date: 10/08/2025 03:46:31 PM
 // Design Name: 
-// Module Name: DoubleSevenSegment
+// Module Name: muxarray_test
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,26 +20,28 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module DoubleSevenSegment #(parameter PRESCALER = 50_000)(
-    input clk,
-    input [7:0] sw,
-    output [3:0] an,
-    output [6:0] seg
-    );
-    
+module muxarray_test();
     wire sel;
+    reg clk;
+    reg [7:0] count;
     wire [3:0] selected_sw;
     
-    ClockDivider #(.PRESCALER(PRESCALER)) CKD(
+    ClockDivider #(.PRESCALER(8)) CKD(
         .clkin(clk),
         .clkout(sel)
     );
 
-    assign an[0] = ~sel;
-    assign an[1] = sel;
-    assign an[2] = 1'b1;
-    assign an[3] = 1'b1;
+    MUXArray DUT(.sel(sel), .a(count[3:0]), .b(count[7:4]), .o(selected_sw));
     
-    MUXArray m(.sel(sel), .a(sw[3:0]), .b(sw[7:4]), .o(selected_sw));
-    NewSevenSegment s0(.wxyz(selected_sw), .seg(seg));
+    initial begin
+      count = 0;
+      clk = 0;
+
+      #100
+      forever #10 clk=~clk;
+    end
+
+    always @(posedge clk) begin
+      count <= count + 1;
+    end
 endmodule

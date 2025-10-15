@@ -22,7 +22,8 @@
 
 module seven_decoder_test();
     reg [3:0] wxyz;
-    wire [6:0] segNew, segTruthTable, err;
+    wire [6:0] segTruthTable, err;
+    wire [0:6]  segNew;
     wire not_the_same;
     
     reg clk;

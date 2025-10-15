@@ -22,7 +22,7 @@
 
 module double_test();
     reg [7:0] wxyz;
-    reg [3:0] an;
+    wire [3:0] an;
     wire [6:0] segNew;
  
     reg clk;
