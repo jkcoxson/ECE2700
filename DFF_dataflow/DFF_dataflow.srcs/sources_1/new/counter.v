@@ -30,19 +30,23 @@ module counter #(parameter PRESCALER = 25_000_000) (
     wire slow_clock;
     ClockDivider #( .PRESCALER(PRESCALER) ) cd (.clkin(mclk), .clkout(slow_clock));
     
-    wire [7:0] to_inc;
+    wire [7:0] j;
+    wire [7:0] k;
     genvar i;
     generate
         for (i = 0; i < 8; i = i + 1) begin : reg_loop
             if (i == 0) begin
-                assign to_inc[i] = incr & ~rst;
+                assign j[i] = incr & ~rst;
+                assign k[i] = incr | rst;
             end else begin
-                assign to_inc[i] = (&Q[i-1:0]) & incr & ~rst;
+                assign j[i] = j[i-1] & Q[i-1];
+                assign k[i] = (j[i-1] & Q[i-1]) | rst;
             end
             
+            
             JKFF jk (
-                .j(to_inc[i]),
-                .k(rst),
+                .j(j[i]),
+                .k(k[i]),
                 .clk(slow_clock),
                 .q(Q[i])
             );
