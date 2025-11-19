@@ -3,7 +3,7 @@
 module state (
     input btn,
     input clk,
-    output reg [2:0] operation
+    output reg [2:0] operation = 3'd0
 );
 
   wire new_btn;
